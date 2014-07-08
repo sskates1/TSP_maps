@@ -1,3 +1,3 @@
 class Locations < ActiveRecord::Base
-  has_many legs
+  has_many :legs
 end
