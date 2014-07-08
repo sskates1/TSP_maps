@@ -3,7 +3,14 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  root to: "home#index"
+  resources :trips, only: [:index, :show, :new, :create] do
+    resources :legs, only: [:create]
+    resources :locations, only: [:create]
+  end
+
+  resources :legs, only: [:show]
+
+  root to: trips_path
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 

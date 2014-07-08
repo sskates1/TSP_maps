@@ -1,0 +1,31 @@
+<h3><%= @trip.name %></h3>
+
+<hr>
+<h4>Legs</h4>
+
+<% @trip.legs.each do |leg| %>
+  <%= leg.start_location %> to <%= leg.stop_location %>
+<%end%>
+
+<%= button_to 'Compute Best Route', trip_path(@trip)  %>
+
+<hr>
+<h5>Add new Location</h5>
+<%= form_for [@trip, @location] do |f| %>
+  <%= f.label :address %>:
+  <%= f.text_field :address %><br>
+
+  <%= f.label :city %>:
+  <%= f.text_field :city %><br>
+
+  <%= f.label :state %>:
+  <%= f.text_area :state %><br>
+
+  <%= f.label :country %>:
+  <%= f.text_area :country %><br>
+
+  <%= f.label :area_code %>:
+  <%= f.text_area :area_code %><br>
+
+  <%= f.submit %>
+<% end %>

@@ -1,0 +1,34 @@
+<h3>Create A Trip</h3>
+
+<%= form_for @trip do |f| %>
+
+  <% if @trip.errors.any? %>
+    <ul>
+      <% @trip.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :mode %>
+    <br>
+    <%= f.label :mode, 'Driving', value: 'driving' %>
+    <%= f.radio_button :mode, 'driving' %>
+    <%= f.label :mode, 'Walking', value: 'walking' %>
+    <%= f.radio_button :mode, 'walking' %>
+    <%= f.label :mode, 'Bicycling', value: 'bicycling' %>
+    <%= f.radio_button :mode, 'bicycling' %>
+    <%= f.label :mode, 'Transit', value: 'transit' %>
+    <%= f.radio_button :mode, 'transit' %>
+
+    <br>
+  </div>
+
+  <%= f.submit 'Submit' %>
+<% end %>
