@@ -2,13 +2,13 @@ class LocationsController < ApplicationController
   respond_to :html, :json
   def create
     @trip = Trip.find(params[:trip_id])
-    @location = @trip.new(location_params)
+    @location = @location.new(location_params)
 
     if @location.save
-      flash[:notice] = 'Your review was saved!'
-      redirect_to locations_new_path(@trip)
+      flash[:notice] = 'Your locattion was added!'
+      redirect_to @trip
     else
-      flash[:notice] = 'Your location could not be saved'
+      flash[:notice] = 'Your location could not be added'
       render @trip
     end
   end

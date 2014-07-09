@@ -1,11 +1,12 @@
 class TripsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   def index
     @trips = Trip.all
   end
 
   def show
     @trip = Trip.find(params[:id])
-    @location = Character.new
+    @location = Location.new
   end
 
   def new
@@ -13,13 +14,13 @@ class TripsController < ApplicationController
   end
 
   def create
-    @television_show = TelevisionShow.new(television_show_params)
+    @trip = current_user.trips.build(trip_params)
 
-    if @television_show.save
-      flash[:notice] = "Success!"
-      redirect_to '/television_shows'
+    if @trip.save
+      flash[:notice] = 'Success!'
+      redirect_to '/trips'
     else
-      flash.now[:notice] = "Your movie couldn't be saved."
+      flash.now[:notice] = "Your trip couldn't be saved."
       render :new
     end
   end
@@ -28,4 +29,9 @@ class TripsController < ApplicationController
 
   end
 
+  private
+
+  def trip_params
+    params.require(:trip).permit(:name, :mode)
+  end
 end

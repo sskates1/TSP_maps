@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   resources :legs, only: [:show]
 
-  root to: trips_path
+  root to: 'trips#index'
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 

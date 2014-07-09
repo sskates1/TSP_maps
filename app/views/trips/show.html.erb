@@ -1,6 +1,10 @@
 <h3><%= @trip.name %></h3>
 
 <hr>
+<h4>Locations</h4>
+  <% @trip.legs.locations.each do |location| %>
+    <%= location.address %> <%= location.city %>
+  <%end%>
 <h4>Legs</h4>
 
 <% @trip.legs.each do |leg| %>

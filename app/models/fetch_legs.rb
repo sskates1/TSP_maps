@@ -1,8 +1,16 @@
 
 class FetchLegs
   def initialize(location1, location2, mode)
-    @location1 = location1
-    @location2 = location2
+    location1_string = ''
+    location1.each do |attribute|
+      location1_string += attribute
+    end
+    location2_string = ''
+    location2.each do |attribute|
+      location2_string += attribute
+    end
+    @location1 = location1_string
+    @location2 = location2_string
     @mode = mode
   end
 
