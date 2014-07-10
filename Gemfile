@@ -30,6 +30,8 @@ gem 'devise'
 
 gem 'httparty'
 
+gem 'rglpk'
+
 group :development, :test do
   gem 'coveralls', require: false
   gem 'capybara'

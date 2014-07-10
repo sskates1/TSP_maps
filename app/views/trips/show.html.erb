@@ -2,13 +2,13 @@
 
 <hr>
 <h4>Locations</h4>
-  <% @trip.legs.locations.each do |location| %>
-    <%= location.address %> <%= location.city %>
+  <% @trip.all_locations.each do |location| %>
+    <%= location %>
   <%end%>
 <h4>Legs</h4>
 
 <% @trip.legs.each do |leg| %>
-  <%= leg.start_location %> to <%= leg.stop_location %>
+  <%= leg %>
 <%end%>
 
 <%= button_to 'Compute Best Route', trip_path(@trip)  %>
@@ -23,13 +23,13 @@
   <%= f.text_field :city %><br>
 
   <%= f.label :state %>:
-  <%= f.text_area :state %><br>
+  <%= f.text_field :state %><br>
 
   <%= f.label :country %>:
-  <%= f.text_area :country %><br>
+  <%= f.text_field :country %><br>
 
   <%= f.label :area_code %>:
-  <%= f.text_area :area_code %><br>
+  <%= f.text_field :area_code %><br>
 
   <%= f.submit %>
 <% end %>
