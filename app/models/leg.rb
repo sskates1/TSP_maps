@@ -9,12 +9,16 @@ class Leg < ActiveRecord::Base
   validates :distance, presence: true
   validates :distance_unit, presence: true
 
-
+  validates :start_location,
+    presence: true,
+    uniqueness: { scope: :end_location }
 
   def all_locations
     locations = []
     locations << start_location
-    locations << end_location
+    if !end_location.nil?
+      locations << end_location
+    end
     locations
   end
 

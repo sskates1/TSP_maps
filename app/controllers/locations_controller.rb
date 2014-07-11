@@ -13,7 +13,8 @@ class LocationsController < ApplicationController
         leg.start_location = @location
         leg.end_location = location
 
-        leg.distance = leg_info['routes']['legs'][0]['distance']['value']
+        #binding.pry
+        leg.distance = leg_info['routes'][0]['legs'][0]['distance']['value']
         leg.distance_unit = 'm'
         leg.save
 
@@ -21,13 +22,12 @@ class LocationsController < ApplicationController
         trip_leg = TripLeg.new
         trip_leg.trip = @trip
         trip_leg.leg = leg
+        trip_leg.time = leg_info['routes'][0]['legs'][0]['duration']['value']
 
         if trip_leg.save
           flash[:notice] = 'Success!'
-          redirect_to @trip
         else
           flash.now[:notice] = "Your location couldn't be saved."
-          redirect_to @trip
         end
 
       end
@@ -42,16 +42,14 @@ class LocationsController < ApplicationController
       trip_leg.trip = @trip
       trip_leg.leg = leg
 
-      #binding.pry
       if trip_leg.save && leg_saved
         flash[:notice] = 'Success!'
-        redirect_to @trip
       else
         flash.now[:notice] = "Your location couldn't be saved."
-        redirect_to @trip
       end
     end
 
+    redirect_to @trip
   end
 
   def new

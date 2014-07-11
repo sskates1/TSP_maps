@@ -3,12 +3,16 @@
 <hr>
 <h4>Locations</h4>
   <% @trip.all_locations.each do |location| %>
-    <%= location %>
+    <%= location.address %> <%= location.city %>
   <%end%>
 <h4>Legs</h4>
 
 <% @trip.legs.each do |leg| %>
-  <%= leg %>
+  <br>
+  <%= leg.start_location.city %>
+  <% if !leg.end_location.nil? %>
+    to <%= leg.end_location.city %><br>
+  <% end %>
 <%end%>
 
 <%= button_to 'Compute Best Route', trip_path(@trip)  %>

@@ -6,7 +6,6 @@ class TripsController < ApplicationController
 
   def show
     @trip = Trip.find(params[:id])
-    binding.pry
     @location = Location.new
     @leg = Leg.new
   end
