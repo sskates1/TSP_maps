@@ -21,14 +21,14 @@
 <% end %>
 
 
-<h4>Legs</h4>
+<h4>Possible Legs</h4>
 <% @trip.trip_legs.each do |trip_leg| %>
-  <br>
   <%= trip_leg.leg.start_location.city %>
   <% if !trip_leg.leg.end_location.nil? %>
     to <%= trip_leg.leg.end_location.city %>
     - distance: <%= trip_leg.leg.text_distance %> <%= trip_leg.text_time %>
   <% end %>
+  <br>
 <% end %>
 
 <hr>

@@ -7,7 +7,6 @@ class TripsController < ApplicationController
   def show
     @trip = Trip.find(params[:id])
     @location = Location.new
-    @leg = Leg.new
   end
 
   def new

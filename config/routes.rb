@@ -4,14 +4,12 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   resources :trips, only: [:index, :show, :new, :create] do
-    resources :legs, only: [:create]
+    resources :legs, only: [:create, :show]
     resources :locations, only: [:create]
     member do
       post "compute_route", to: "trips#compute_route"
     end
   end
-
-  resources :legs, only: [:show]
 
   root to: 'trips#index'
   # You can have the root of your site routed with "root"

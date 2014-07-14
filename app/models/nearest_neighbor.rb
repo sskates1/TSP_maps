@@ -30,7 +30,6 @@ class NearestNeighbor
         end
       end
 
-      #binding.pry
       #legs = current_location.legs
       temp_legs = legs.clone
       legs.each do |leg|
@@ -62,7 +61,7 @@ class NearestNeighbor
       else
         new_location = shortest_leg.start_location
       end
-      #binding.pry
+
       locations.delete_if do |location|
         location == current_location
       end
