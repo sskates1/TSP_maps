@@ -19,7 +19,7 @@ class TripsController < ApplicationController
 
     if @trip.save
       flash[:notice] = 'Success!'
-      redirect_to '/trips'
+      redirect_to @trip
     else
       flash.now[:notice] = "Your trip couldn't be saved."
       render :new
@@ -27,7 +27,10 @@ class TripsController < ApplicationController
   end
 
   def compute_route
-
+    @trip = Trip.find(params[:id])
+    @nearest_neighbor = NearestNeighbor.new(@trip)
+    @nearest_neighbor.get_route
+    redirect_to @trip
   end
 
   private

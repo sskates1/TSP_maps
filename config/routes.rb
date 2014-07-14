@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   resources :trips, only: [:index, :show, :new, :create] do
     resources :legs, only: [:create]
     resources :locations, only: [:create]
+    member do
+      post "compute_route", to: "trips#compute_route"
+    end
   end
 
   resources :legs, only: [:show]

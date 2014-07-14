@@ -15,6 +15,7 @@ class LocationsController < ApplicationController
 
         #binding.pry
         leg.distance = leg_info['routes'][0]['legs'][0]['distance']['value']
+        leg.text_distance = leg_info['routes'][0]['legs'][0]['distance']['text']
         leg.distance_unit = 'm'
         leg.save
 
@@ -23,6 +24,7 @@ class LocationsController < ApplicationController
         trip_leg.trip = @trip
         trip_leg.leg = leg
         trip_leg.time = leg_info['routes'][0]['legs'][0]['duration']['value']
+        trip_leg.text_time = leg_info['routes'][0]['legs'][0]['duration']['text']
 
         if trip_leg.save
           flash[:notice] = 'Success!'

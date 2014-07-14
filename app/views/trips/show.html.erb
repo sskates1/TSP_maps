@@ -2,20 +2,34 @@
 
 <hr>
 <h4>Locations</h4>
-  <% @trip.all_locations.each do |location| %>
-    <%= location.address %> <%= location.city %>
-  <%end%>
-<h4>Legs</h4>
-
-<% @trip.legs.each do |leg| %>
-  <br>
-  <%= leg.start_location.city %>
-  <% if !leg.end_location.nil? %>
-    to <%= leg.end_location.city %><br>
-  <% end %>
+<% @trip.all_locations.each do |location| %>
+  <%= location.address %> <%= location.city %> <br>
 <%end%>
 
-<%= button_to 'Compute Best Route', trip_path(@trip)  %>
+<%= button_to 'Compute Best Route', compute_route_trip_path(@trip)  %>
+
+<h4>Optimal Route</h4>
+<% @trip.trip_legs.each do |trip_leg| %>
+  <% if !trip_leg.order_position.nil? %>
+    Step Number: <%= trip_leg.order_position %>
+    <br>
+    <%= trip_leg.leg.start_location.city %>
+    to <%= trip_leg.leg.end_location.city %>
+    - distance: <%= trip_leg.leg.text_distance %> <%= trip_leg.text_time %>
+    <br>
+  <% end %>
+<% end %>
+
+
+<h4>Legs</h4>
+<% @trip.trip_legs.each do |trip_leg| %>
+  <br>
+  <%= trip_leg.leg.start_location.city %>
+  <% if !trip_leg.leg.end_location.nil? %>
+    to <%= trip_leg.leg.end_location.city %>
+    - distance: <%= trip_leg.leg.text_distance %> <%= trip_leg.text_time %>
+  <% end %>
+<% end %>
 
 <hr>
 <h5>Add new Location</h5>
