@@ -15,25 +15,40 @@ class NearestNeighbor
 
     while locations.length > 0
       legs = []
+      return_home_leg = TripLeg.new
       trip_legs.each do |trip_leg|
         if (trip_leg.leg.start_location == current_location ||
           trip_leg.leg.end_location == current_location) &&
           !trip_leg.leg.end_location.nil?
+
           legs << trip_leg.leg
+
+          if (trip_leg.leg.start_location == start_location ||
+            trip_leg.leg.end_location == start_location)
+            return_home_leg = trip_leg.leg
+          end
         end
       end
 
+      #binding.pry
       #legs = current_location.legs
+      temp_legs = legs.clone
       legs.each do |leg|
         if previous_locations.include?(leg.start_location) ||
           previous_locations.include?(leg.end_location)
-          legs.delete(leg)
+
+          temp_legs.delete(leg)
         end
       end
+      legs = temp_legs
 
       shortest_leg = legs.min_by do |leg|
         leg.distance
       end
+      if legs.empty?
+        shortest_leg = return_home_leg
+      end
+
       trip_legs.each do |trip_leg|
         if trip_leg.leg == shortest_leg
           trip_leg.order_position = count
@@ -47,7 +62,7 @@ class NearestNeighbor
       else
         new_location = shortest_leg.start_location
       end
-      binding.pry
+      #binding.pry
       locations.delete_if do |location|
         location == current_location
       end
