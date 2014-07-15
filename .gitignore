@@ -17,3 +17,6 @@
 
 #keys
 .env
+
+# Ignore coveralls files
+/coverage

@@ -43,7 +43,7 @@ class LocationsController < ApplicationController
           trip_leg.text_time = leg_info['routes'][0]['legs'][0]['duration']['text']
 
           if trip_leg.save
-            flash[:notice] = 'Success!'
+            flash[:notice] = 'Success! Your location was added.'
           else
             flash.now[:notice] = "Your location couldn't be saved."
           end
@@ -61,7 +61,7 @@ class LocationsController < ApplicationController
         trip_leg.leg = leg
 
         if trip_leg.save && leg_saved
-          flash[:notice] = 'Success!'
+          flash[:notice] = 'Success! Your location was added.'
         else
           flash.now[:notice] = "Your location couldn't be saved."
         end

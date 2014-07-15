@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :trip, :class => 'Trip' do
     name 'East Coast'
-    mode 'car'
+    mode 'Driving'
 
     user
   end
