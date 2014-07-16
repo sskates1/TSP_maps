@@ -13,6 +13,7 @@
   <% if !trip_leg.order_position.nil? %>
     Step Number: <%= trip_leg.order_position %>
     <br>
+
     <%= trip_leg.leg.start_location.city %>
     to <%= trip_leg.leg.end_location.city %>
     - distance: <%= trip_leg.leg.text_distance %> <%= trip_leg.text_time %>
