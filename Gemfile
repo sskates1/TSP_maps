@@ -35,8 +35,11 @@ gem 'webmock'
 
 # gem 'rglpk'
 
-group :development, :test do
+group :test do
   gem 'coveralls', require: false
+end
+
+group :development, :test do
   gem 'capybara'
   gem 'rspec-rails'
   gem 'pry-rails'

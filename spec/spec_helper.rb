@@ -14,12 +14,11 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-require 'simplecov'
 require 'coveralls'
 Coveralls.wear!('rails')
 
-require 'webmock/rspec'
-WebMock.disable_net_connect!(allow_localhost: true)
+# require 'webmock/rspec'
+# WebMock.disable_net_connect!(allow_localhost: true)
 
 RSpec.configure do |config|
 
