@@ -69,6 +69,6 @@ class NearestNeighbor
       current_location = new_location
       # end while
     end
-
+    previous_locations
   end
 end

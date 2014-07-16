@@ -28,7 +28,7 @@ class TripsController < ApplicationController
   def compute_route
     @trip = Trip.find(params[:id])
     @nearest_neighbor = NearestNeighbor.new(@trip)
-    @nearest_neighbor.get_route
+    @location_order = @nearest_neighbor.get_route
     redirect_to @trip
   end
 
