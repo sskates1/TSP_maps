@@ -23,7 +23,7 @@ feature 'user creates a new user', %Q{
     expect(page).to have_content location.city
   end
 
-  scenario 'user adds multiple locations' do
+  scenario 'user adds multiple locations', :vcr do
 
     trip_leg = FactoryGirl.create(:trip_leg)
     location = FactoryGirl.build(:location)

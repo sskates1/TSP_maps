@@ -30,6 +30,8 @@ gem 'devise'
 
 gem 'httparty'
 
+gem 'webmock'
+
 # gem 'rglpk'
 
 group :development, :test do
@@ -40,6 +42,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'dotenv-rails'
   gem 'launchy'
+  gem 'vcr'
 end
 
 # Use ActiveModel has_secure_password

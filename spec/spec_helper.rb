@@ -18,9 +18,19 @@ require 'simplecov'
 require 'coveralls'
 Coveralls.wear!('rails')
 
+require 'webmock/rspec'
+WebMock.disable_net_connect!(allow_localhost: true)
+
 RSpec.configure do |config|
+
+  # config.before(:each) do
+  #   stub_request(:get, '/maps.googleapis.com/maps/api/directions/').
+  #     with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+  #     to_return(status: 200, body: "stubbed response", headers: {})
+  # end
+
   #config.include Devise::TestHelpers, type: :controller
-  
+
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
 =begin
