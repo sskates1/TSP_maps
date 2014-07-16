@@ -17,7 +17,7 @@ class TripsController < ApplicationController
     @trip = current_user.trips.build(trip_params)
 
     if @trip.save
-      flash[:notice] = 'Success!'
+      flash[:notice] = "Success!"
       redirect_to @trip
     else
       flash.now[:notice] = "Your trip couldn't be saved."

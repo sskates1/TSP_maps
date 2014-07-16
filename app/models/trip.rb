@@ -9,7 +9,7 @@ class Trip < ActiveRecord::Base
 
   def all_locations
     locations = []
-    self.legs.each do |leg|
+    legs.each do |leg|
       locations << leg.all_locations
     end
     locations.flatten.uniq

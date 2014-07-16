@@ -3,6 +3,6 @@ class TripLeg < ActiveRecord::Base
   belongs_to :leg
 
   validates :leg,
-    presence: true,
-    uniqueness: { scope: :trip }
+            presence: true,
+            uniqueness: { scope: :trip }
 end
