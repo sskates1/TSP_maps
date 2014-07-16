@@ -1,6 +1,7 @@
 class NearestNeighbor
   def initialize(trip)
     @trip = trip
+    @previous_locations = [ ]
   end
 
   def get_route
@@ -9,7 +10,6 @@ class NearestNeighbor
     locations.shift
     trip_legs = @trip.trip_legs
     current_location = start_location
-    previous_locations = [ ]
     count = 1
 
     while locations.length > 0
@@ -32,8 +32,8 @@ class NearestNeighbor
       # legs = current_location.legs
       temp_legs = legs.clone
       legs.each do |leg|
-        if previous_locations.include?(leg.start_location) ||
-          previous_locations.include?(leg.end_location)
+        if @previous_locations.include?(leg.start_location) ||
+          @previous_locations.include?(leg.end_location)
 
           temp_legs.delete(leg)
         end
@@ -65,10 +65,9 @@ class NearestNeighbor
         location == current_location
       end
 
-      previous_locations << current_location
+      @previous_locations << current_location
       current_location = new_location
       # end while
     end
-    previous_locations
   end
 end
