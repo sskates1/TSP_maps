@@ -1,7 +1,17 @@
 Rails.application.routes.draw do
+  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
+  resources :trips, only: [:index, :show, :new, :create] do
+    resources :legs, only: [:create, :show]
+    resources :locations, only: [:create]
+    member do
+      post "compute_route", to: "trips#compute_route"
+    end
+  end
+
+  root to: 'trips#index'
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 

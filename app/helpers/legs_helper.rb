@@ -1,0 +1,2 @@
+module LegsHelper
+end

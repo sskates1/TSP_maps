@@ -14,3 +14,9 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+#keys
+.env
+
+# Ignore coveralls files
+/coverage

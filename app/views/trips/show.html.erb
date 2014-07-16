@@ -1,0 +1,54 @@
+<h3><%= @trip.name %></h3>
+
+<hr>
+<h4>Locations</h4>
+<% @trip.all_locations.each do |location| %>
+  <%= location.address %> <%= location.city %> <br>
+<%end%>
+
+<%= button_to 'Compute Best Route', compute_route_trip_path(@trip)  %>
+
+<h4>Optimal Route</h4>
+<% @trip.trip_legs.each do |trip_leg| %>
+  <% if !trip_leg.order_position.nil? %>
+    Step Number: <%= trip_leg.order_position %>
+    <br>
+
+    <%= trip_leg.leg.start_location.city %>
+    to <%= trip_leg.leg.end_location.city %>
+    - distance: <%= trip_leg.leg.text_distance %> <%= trip_leg.text_time %>
+    <br>
+  <% end %>
+<% end %>
+
+
+<h4>Possible Legs</h4>
+<% @trip.trip_legs.each do |trip_leg| %>
+  <%= trip_leg.leg.start_location.city %>
+  <% if !trip_leg.leg.end_location.nil? %>
+    to <%= trip_leg.leg.end_location.city %>
+    - distance: <%= trip_leg.leg.text_distance %> <%= trip_leg.text_time %>
+  <% end %>
+  <br>
+<% end %>
+
+<hr>
+<h5>Add new Location</h5>
+<%= form_for [@trip, @location] do |f| %>
+  <%= f.label :address %>:
+  <%= f.text_field :address %><br>
+
+  <%= f.label :city %>:
+  <%= f.text_field :city %><br>
+
+  <%= f.label :state %>:
+  <%= f.text_field :state %><br>
+
+  <%= f.label :country %>:
+  <%= f.text_field :country %><br>
+
+  <%= f.label :area_code %>:
+  <%= f.text_field :area_code %><br>
+
+  <%= f.submit %>
+<% end %>
