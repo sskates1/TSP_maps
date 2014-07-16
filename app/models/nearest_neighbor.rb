@@ -1,7 +1,7 @@
 class NearestNeighbor
   def initialize(trip)
     @trip = trip
-    @previous_locations = [ ]
+    @previous_locations = []
   end
 
   def get_route
