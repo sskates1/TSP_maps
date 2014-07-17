@@ -31,12 +31,12 @@ gem 'devise'
 
 gem 'httparty'
 
-gem 'webmock'
-
+# wraper for linear optimization of GNU project
 # gem 'rglpk'
 
 group :test do
   gem 'coveralls', require: false
+  gem 'webmock'
 end
 
 group :production do
