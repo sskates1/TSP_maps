@@ -31,6 +31,8 @@ gem 'devise'
 
 gem 'httparty'
 
+gem 'bootstrap-sass'
+
 # wraper for linear optimization of GNU project
 # gem 'rglpk'
 

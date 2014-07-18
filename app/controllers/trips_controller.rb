@@ -1,7 +1,12 @@
 class TripsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   def index
-    @trips = Trip.all
+    if user_signed_in?
+      @trips = current_user.trips
+    else
+      flash[:warning] = "Please login to view your trips."
+      @trips = []
+    end
   end
 
   def show
@@ -20,7 +25,6 @@ class TripsController < ApplicationController
       flash[:notice] = "Success!"
       redirect_to @trip
     else
-      flash.now[:notice] = "Your trip couldn't be saved."
       render :new
     end
   end

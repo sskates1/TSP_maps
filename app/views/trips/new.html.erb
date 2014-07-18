@@ -1,34 +1,44 @@
-<h3>Create A Trip</h3>
+<div class="page-header">
+  <h3>Create A Trip</h3>
+</div>
 
 <%= form_for @trip do |f| %>
 
   <% if @trip.errors.any? %>
-    <ul>
-      <% @trip.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
+    <div class="alert alert-danger" role="alert">
+      <ul>
+        <% @trip.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
 
   <div>
     <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
-
-  <div>
-    <%= f.label :mode %>
-    <br>
-    <%= f.label :mode, 'Driving', value: 'driving' %>
-    <%= f.radio_button :mode, 'driving' %>
-    <%= f.label :mode, 'Walking', value: 'walking' %>
-    <%= f.radio_button :mode, 'walking' %>
-    <%= f.label :mode, 'Bicycling', value: 'bicycling' %>
-    <%= f.radio_button :mode, 'bicycling' %>
-    <%= f.label :mode, 'Transit', value: 'transit' %>
-    <%= f.radio_button :mode, 'transit' %>
-
+  <br>
+  <div class="btn-group-vertical">
+    <h4><%= f.label :mode %></h4>
+    <div>
+      <%= f.radio_button :mode, 'driving', value: 'driving', class: "btn-group" %>
+      <%= f.label :mode, 'Driving', value: 'driving' %>
+    </div>
+    <div>
+      <%= f.radio_button :mode, 'walking', class: "btn-group" %>
+      <%= f.label :mode, 'Walking', value: 'walking' %>
+    </div>
+    <div>
+      <%= f.radio_button :mode, 'bicycling', class: "btn-group" %>
+      <%= f.label :mode, 'Bicycling', value: 'bicycling' %>
+    </div>
+    <div>
+      <%= f.radio_button :mode, 'transit', class: "btn-group" %>
+      <%= f.label :mode, 'Transit', value: 'transit'  %>
+    </div>
     <br>
   </div>
-
+  <br>
   <%= f.submit 'Submit' %>
 <% end %>
