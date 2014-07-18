@@ -1,13 +1,17 @@
-<h3>Create A Trip</h3>
+<div class="page-header">
+  <h3>Create A Trip</h3>
+</div>
 
 <%= form_for @trip do |f| %>
 
   <% if @trip.errors.any? %>
-    <ul>
-      <% @trip.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
+    <div class="alert alert-danger" role="alert">
+      <ul>
+        <% @trip.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
 
   <div>

@@ -17,7 +17,7 @@ class LocationsController < ApplicationController
     end
 
     if !entered_information
-      flash[:notice] = "One field must be filled out."
+      flash[:alert] = "One field must be filled out."
       return redirect_to @trip
 
     else
@@ -47,7 +47,7 @@ class LocationsController < ApplicationController
           if trip_leg.save
             flash[:notice] = "Success! Your location was added."
           else
-            flash.now[:notice] = "Your location couldn't be saved."
+            flash.now[:alert] = "Your location couldn't be saved."
           end
 
         end
@@ -65,7 +65,7 @@ class LocationsController < ApplicationController
         if trip_leg.save && leg_saved
           flash[:notice] = "Success! Your location was added."
         else
-          flash.now[:notice] = "Your location couldn't be saved."
+          flash.now[:alert] = "Your location couldn't be saved."
         end
       end
       redirect_to @trip
