@@ -12,40 +12,49 @@ class NearestNeighbor
     current_location = start_location
     count = 1
 
+    trip_legs.each do |trip_leg|
+      trip_leg.order_position = nil
+      trip_leg.save
+    end
+
     while locations.length > 0
       legs = []
-      return_home_leg = TripLeg.new
+      legs_times = []
+      return_home_trip_leg = TripLeg.new
       trip_legs.each do |trip_leg|
         if (trip_leg.leg.start_location == current_location ||
           trip_leg.leg.end_location == current_location) &&
           !trip_leg.leg.end_location.nil?
 
-          legs << trip_leg.leg
+          legs_times << trip_leg
 
           if (trip_leg.leg.start_location == start_location ||
             trip_leg.leg.end_location == start_location)
-            return_home_leg = trip_leg.leg
+
+            return_home_trip_leg = trip_leg
           end
         end
       end
 
       # legs = current_location.legs
-      temp_legs = legs.clone
-      legs.each do |leg|
-        if @previous_locations.include?(leg.start_location) ||
-          @previous_locations.include?(leg.end_location)
+      temp_legs = legs_times.clone
+      legs_times.each do |trip_leg|
+        if @previous_locations.include?(trip_leg.leg.start_location) ||
+          @previous_locations.include?(trip_leg.leg.end_location)
 
-          temp_legs.delete(leg)
+          temp_legs.delete(trip_leg)
         end
       end
-      legs = temp_legs
+      legs_times = temp_legs
 
-      shortest_leg = legs.min_by do |leg|
-        leg.distance
+      shortest_leg = legs_times.min_by do |legs_time|
+        legs_time.time
       end
-      if legs.empty?
-        shortest_leg = return_home_leg
+
+      if legs_times.empty?
+        shortest_leg = return_home_trip_leg
       end
+      shortest_leg = shortest_leg.leg
 
       trip_legs.each do |trip_leg|
         if trip_leg.leg == shortest_leg
