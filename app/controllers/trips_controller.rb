@@ -39,7 +39,7 @@ class TripsController < ApplicationController
       @trip.save
     end
     #binding.pry
-    if @trip.update_attributes(name: params[:name], mode: params[:mode])
+    if @trip.update(name: params[:name], mode: params[:mode])
       redirect_to @trip
     elsif params[:update_route]
       flash[:notice] = "Route calculated!"
@@ -50,14 +50,7 @@ class TripsController < ApplicationController
     end
   end
 
-  def compute_route
-    @trip = Trip.find(params[:id])
-    @nearest_neighbor = NearestNeighbor.new(@trip)
-    session[:route] = @nearest_neighbor.get_route
-    redirect_to @trip
-  end
-
-  #private
+  private
 
   def trip_params
     params.require(:trip).permit(:name, :mode)
