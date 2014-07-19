@@ -7,18 +7,24 @@
   <%= location.address %> <%= location.city %> <br>
 <%end%>
 
-<%= button_to 'Compute Best Route', compute_route_trip_path(@trip)  %>
+<%= button_to 'Compute Best Route', trip_path(@trip, update_route: true), method: :put  %>
 
 <h4>Optimal Route</h4>
-<% @trip.trip_legs.each do |trip_leg| %>
-  <% if !trip_leg.order_position.nil? %>
-    Step Number: <%= trip_leg.order_position %>
-    <br>
-
-    <%= trip_leg.leg.start_location.city %>
-    to <%= trip_leg.leg.end_location.city %>
-    - distance: <%= trip_leg.leg.text_distance %> <%= trip_leg.text_time %>
-    <br>
+<% if @trip.route.length > 0 %>
+  <% @trip.trip_legs.each do |trip_leg| %>
+    <% if !trip_leg.order_position.nil? %>
+      Step Number: <%= trip_leg.order_position %>
+      <br>
+      <% if (@trip.route[trip_leg.order_position-1].to_i == trip_leg.leg.start_location.id) %>
+        <%= trip_leg.leg.start_location.city %>
+        to <%= trip_leg.leg.end_location.city %>
+      <% else %>
+        <%= trip_leg.leg.end_location.city %>
+        to <%= trip_leg.leg.start_location.city %>
+      <% end %>
+      - distance: <%= trip_leg.leg.text_distance %> <%= trip_leg.text_time %>
+      <br>
+    <% end %>
   <% end %>
 <% end %>
 

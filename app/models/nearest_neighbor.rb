@@ -1,4 +1,5 @@
 class NearestNeighbor
+  attr_accessor :previous_locations
   def initialize(trip)
     @trip = trip
     @previous_locations = []
@@ -78,5 +79,6 @@ class NearestNeighbor
       current_location = new_location
       # end while
     end
+    return @previous_locations
   end
 end
