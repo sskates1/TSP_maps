@@ -35,10 +35,9 @@ class TripsController < ApplicationController
     if params[:update_route]
       @nearest_neighbor = NearestNeighbor.new(@trip)
       @trip.route = @nearest_neighbor.get_route
-      #binding.pry
       @trip.save
     end
-    #binding.pry
+    
     if @trip.update(name: params[:name], mode: params[:mode])
       redirect_to @trip
     elsif params[:update_route]
