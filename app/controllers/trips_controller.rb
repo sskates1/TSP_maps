@@ -29,11 +29,24 @@ class TripsController < ApplicationController
     end
   end
 
-  def compute_route
+  def update
     @trip = Trip.find(params[:id])
-    @nearest_neighbor = NearestNeighbor.new(@trip)
-    @nearest_neighbor.get_route
-    redirect_to @trip
+
+    if params[:update_route]
+      @nearest_neighbor = NearestNeighbor.new(@trip)
+      @trip.route = @nearest_neighbor.get_route
+      @trip.save
+    end
+    
+    if @trip.update(name: params[:name], mode: params[:mode])
+      redirect_to @trip
+    elsif params[:update_route]
+      flash[:notice] = "Route calculated!"
+      redirect_to @trip
+    else
+      flash[:alert] = "Could not update your trip."
+      redirect_to :back
+    end
   end
 
   private
