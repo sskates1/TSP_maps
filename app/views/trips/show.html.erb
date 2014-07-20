@@ -16,11 +16,25 @@
       Step Number: <%= trip_leg.order_position %>
       <br>
       <% if (@trip.route[trip_leg.order_position-1].to_i == trip_leg.leg.start_location.id) %>
+        <% if trip_leg.leg.start_location.address.length > 0%>
+          <%= trip_leg.leg.start_location.address %>,
+        <% end %>
         <%= trip_leg.leg.start_location.city %>
-        to <%= trip_leg.leg.end_location.city %>
-      <% else %>
+        to
+        <% if trip_leg.leg.end_location.address.length > 0%>
+          <%= trip_leg.leg.end_location.address %>,
+        <% end %>
         <%= trip_leg.leg.end_location.city %>
-        to <%= trip_leg.leg.start_location.city %>
+      <% else %>
+        <% if trip_leg.leg.end_location.address.length > 0%>
+          <%= trip_leg.leg.end_location.address %>,
+        <% end %>
+        <%= trip_leg.leg.end_location.city %>
+        to
+        <% if trip_leg.leg.start_location.address.length > 0%>
+          <%= trip_leg.leg.start_location.address %>,
+        <% end %>
+        <%= trip_leg.leg.start_location.city %>
       <% end %>
       - distance: <%= trip_leg.leg.text_distance %> <%= trip_leg.text_time %>
       <br>
