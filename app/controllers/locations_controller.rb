@@ -24,32 +24,7 @@ class LocationsController < ApplicationController
       @location = Location.create(location_params)
       if @trip.all_locations.count != 0
         @trip.all_locations.each do | location |
-          fetch_leg = FetchLeg.new(@location, location, @trip.mode)
-          leg_info = fetch_leg.fetch
-
-          leg = Leg.new
-          leg.start_location = @location
-          leg.end_location = location
-
-          leg.distance = leg_info["routes"][0]["legs"][0]["distance"]["value"]
-          leg.text_distance =
-            leg_info["routes"][0]["legs"][0]["distance"]["text"]
-          leg.distance_unit = "m"
-          leg.save
-
-          trip_leg = TripLeg.new
-          trip_leg.trip = @trip
-          trip_leg.leg = leg
-          trip_leg.time = leg_info["routes"][0]["legs"][0]["duration"]["value"]
-          trip_leg.text_time =
-            leg_info["routes"][0]["legs"][0]["duration"]["text"]
-
-          if trip_leg.save
-            flash[:notice] = "Success! Your location was added."
-          else
-            flash.now[:alert] = "Your location couldn't be saved."
-          end
-
+          get_leg_info(@location,location, @trip)
         end
       else
         leg = Leg.new
@@ -78,6 +53,58 @@ class LocationsController < ApplicationController
   end
 
   private
+
+  def get_leg_info(start_location, end_location, trip)
+    fetch_leg = FetchLeg.new(start_location, end_location, @trip.mode)
+    return_leg = FetchLeg.new(end_location, start_location, @trip.mode)
+
+    #api call
+    leg_info = fetch_leg.fetch
+    return_info = return_leg.fetch
+
+    #legs generations
+    leg = Leg.new
+    leg.start_location = start_location
+    leg.end_location = end_location
+
+    leg2 = Leg.new
+    leg2.start_location = end_location
+    leg2.end_location = start_location
+
+    #extract info from API call
+    leg.distance = leg_info["routes"][0]["legs"][0]["distance"]["value"]
+    leg.text_distance =
+      leg_info["routes"][0]["legs"][0]["distance"]["text"]
+    leg.distance_unit = "m"
+    leg.save
+
+    leg2.distance = return_info["routes"][0]["legs"][0]["distance"]["value"]
+    leg2.text_distance =
+      return_info["routes"][0]["legs"][0]["distance"]["text"]
+    leg2.distance_unit = "m"
+    leg2.save
+
+    #get time info into the trip leg
+    trip_leg = TripLeg.new
+    trip_leg.trip = trip
+    trip_leg.leg = leg
+    trip_leg.time = leg_info["routes"][0]["legs"][0]["duration"]["value"]
+    trip_leg.text_time =
+      leg_info["routes"][0]["legs"][0]["duration"]["text"]
+
+    trip_leg2 = TripLeg.new
+    trip_leg2.trip = trip
+    trip_leg2.leg = leg2
+    trip_leg2.time = return_info["routes"][0]["legs"][0]["duration"]["value"]
+    trip_leg2.text_time =
+      return_info["routes"][0]["legs"][0]["duration"]["text"]
+
+    if trip_leg.save && trip_leg2.save
+      flash[:notice] = "Success! Your location was added."
+    else
+      flash.now[:alert] = "Your location couldn't be saved."
+    end
+  end
 
   def location_params
     params.require(:location).permit(:address,

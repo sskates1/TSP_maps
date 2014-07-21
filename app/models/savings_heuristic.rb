@@ -14,7 +14,7 @@ class SavingsHeuristic
   end
 
   def generate_base_route
-
+    
   end
 
   def find_savings_largest_savings
