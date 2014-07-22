@@ -1,28 +1,21 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+TSP_maps
 
-Things you may want to cover:
+Simon's Traveling Salesman Solver
+http://simons-traveling-salesman.herokuapp.com/
 
-* Ruby version
+This is for a Ruby on Rails app that solves the traveling salesman problem.
+Allows the user to sign-in and create a trip and add locations.
+Once all locations are added they can compute a good route.
+Uses Google Directions API to calculate road distances and travel times.
 
-* System dependencies
+* Ruby version: 2.1.2
 
-* Configuration
+Run
 
-* Database creation
+bundle install
 
-* Database initialization
+rake db:create
+rake db:migrate
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
