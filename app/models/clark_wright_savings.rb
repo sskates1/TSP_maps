@@ -36,7 +36,7 @@ class NearestNeighbor
   end
 
   def tour_endpoints
-
+    #savings should be created relative to the tour endpoints
   end
 
   def get_route
