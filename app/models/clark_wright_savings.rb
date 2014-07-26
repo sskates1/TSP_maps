@@ -15,21 +15,70 @@ class ClarkWrightSavings
   end
 
   def update_savings_list
+    @savings_list = []
     @trip.trip_legs.each do |trip_leg1|
-      if trip_leg1.leg.start_location == @end_point_1 &&
+
+      new_location = nil
+      connection_trip_leg = nil
+      return_trip_leg = nil
+      saved_trip_leg = nil
+
+      if trip_leg1.leg.start_location == @end_point_1 ||
+        trip_leg1.leg.start_location == @end_point_2 &&
         !trip_leg1.leg.end_location.nil?
 
-        location1 = trip_leg1.leg.end_location
+        new_location = trip_leg1.leg.end_location
+        connection_trip_leg = trip_leg1
 
-      elsif trip_leg1.leg.end_location == @end_point_1
+      elsif trip_leg1.leg.end_location == @end_point_1 ||
+        trip_leg1.leg.end_location == @end_point_2
 
-        location1 = trip_leg1.leg.start_location
+        new_location = trip_leg1.leg.start_location
+        connection_trip_leg = trip_leg1
+
       else
         next
       end
-    end
 
+      @trip.trip_legs.each do |trip_leg2|
+        # look only at the legs going to the start location
+        if trip_leg2.leg.start_location == @start_location &&
+          trip_leg2.leg.end_location == new_location
+
+          return_trip_leg = trip_leg2
+
+        elsif trip_leg2.leg.end_location == @start_location &&
+          trip_leg2.leg.end_location == new_location
+
+          return_trip_leg = trip_leg2
+
+        elsif trip_leg2.leg.start_location == @start_location &&
+          trip_leg2.leg.end_location == @end_point_1
+
+          saved_trip_leg = trip_leg2
+
+        elsif trip_leg2.leg.end_location == @start_location &&
+          trip_leg2.leg.end_location == @end_point_1
+
+          saved_trip_leg = trip_leg2
+
+        else
+          next
+        end
+      end
+      if !new_location.nil? && !connection_trip_leg.nil? &&
+        !return_leg.nil? && !saved_leg.nil?
+        @savings_list << {
+          new_location: new_location,
+          connection_trip_leg: connection_trip_leg,
+          return_trip_leg: return_trip_leg,
+          saved_trip_leg: saved_trip_leg
+        }
+      end
+    end
+    # end trip_legs1 .each
   end
+  # end update_savings_list
 
   def create_tour_primative
     location1 = Location.new
