@@ -15,6 +15,19 @@ class ClarkWrightSavings
   end
 
   def update_savings_list
+    @trip.trip_legs.each do |trip_leg1|
+      if trip_leg1.leg.start_location == @end_point_1 &&
+        !trip_leg1.leg.end_location.nil?
+
+        location1 = trip_leg1.leg.end_location
+
+      elsif trip_leg1.leg.end_location == @end_point_1
+
+        location1 = trip_leg1.leg.start_location
+      else
+        next
+      end
+    end
 
   end
 
