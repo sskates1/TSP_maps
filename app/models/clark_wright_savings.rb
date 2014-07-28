@@ -23,6 +23,7 @@ class ClarkWrightSavings
       return_trip_leg = nil
       saved_trip_leg = nil
 
+      # finds connection leg to one of the end points
       if trip_leg1.leg.start_location == @end_point_1 ||
         trip_leg1.leg.start_location == @end_point_2 &&
         !trip_leg1.leg.end_location.nil?
@@ -41,7 +42,8 @@ class ClarkWrightSavings
       end
 
       @trip.trip_legs.each do |trip_leg2|
-        # look only at the legs going to the start location
+        # look only at the legs going to the start location to
+        # the new location and the end point
         if trip_leg2.leg.start_location == @start_location &&
           trip_leg2.leg.end_location == new_location
 
