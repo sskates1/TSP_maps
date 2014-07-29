@@ -157,11 +157,11 @@ class ClarkWrightSavings
     create_tour_primative
     while @previous_locations.length < @trip.all_locations.length
       update_savings_list
-      max_savings_legs = @savings_list.min_by do |legs_to_add|
-        legs_to_add.savings
+      max_savings_legs = @savings_list.max_by do |legs_to_add|
+        legs_to_add[:saved_trip_leg] + legs_to_add[:return_trip_leg] - legs_to_add[:connection_trip_leg]
       end
       @tour_primative << max_savings_legs
-      @previous_locations << max_savings_legs.added_location
+      @previous_locations << max_savings_legs[:new_location]
     end
   end
 end
