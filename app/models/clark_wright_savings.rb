@@ -179,10 +179,13 @@ class ClarkWrightSavings
 
       # add right leg to the apropriate side of the tour
       if max_savings_legs[:connected_to] == "end_point_1"
-        @tour_primative.insert( 1, max_savings_legs[:connection_trip_leg])
+
+        @tour_primative.shift
+        @tour_primative.unshift( max_savings_legs[:connection_trip_leg])
 
       elsif max_savings_legs[:connected_to] == "end_point_2"
-        @tour_primative.insert( -2, max_savings_legs[:connection_trip_leg])
+        @tour_primative.pop
+        @tour_primative.push( max_savings_legs[:connection_trip_leg])
 
       end
       @previous_locations << max_savings_legs[:new_location]
