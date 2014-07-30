@@ -22,6 +22,7 @@ class ClarkWrightSavings
       connection_trip_leg = nil
       return_trip_leg = nil
       saved_trip_leg = nil
+      connected_to = ""
 
       # finds connection leg to one of the end points
       if trip_leg1.leg.start_location == @end_point_1 ||
@@ -50,7 +51,7 @@ class ClarkWrightSavings
           return_trip_leg = trip_leg2
 
         elsif trip_leg2.leg.end_location == @start_location &&
-          trip_leg2.leg.end_location == new_location
+          trip_leg2.leg.start_location == new_location
 
           return_trip_leg = trip_leg2
 
@@ -58,11 +59,25 @@ class ClarkWrightSavings
           trip_leg2.leg.end_location == @end_point_1
 
           saved_trip_leg = trip_leg2
+          connected_to = "end_point_1"
 
         elsif trip_leg2.leg.end_location == @start_location &&
-          trip_leg2.leg.end_location == @end_point_1
+          trip_leg2.leg.start_location == @end_point_1
 
           saved_trip_leg = trip_leg2
+          connected_to = "end_point_1"
+
+        elsif trip_leg2.leg.start_location == @start_location &&
+          trip_leg2.leg.end_location == @end_point_2
+
+          saved_trip_leg = trip_leg2
+          connected_to = "end_point_2"
+
+        elsif trip_leg2.leg.end_location == @start_location &&
+          trip_leg2.leg.start_location == @end_point_2
+
+          saved_trip_leg = trip_leg2
+          connected_to = "end_point_2"
 
         else
           next
@@ -74,7 +89,8 @@ class ClarkWrightSavings
           new_location: new_location,
           connection_trip_leg: connection_trip_leg,
           return_trip_leg: return_trip_leg,
-          saved_trip_leg: saved_trip_leg
+          saved_trip_leg: saved_trip_leg,
+          connected_to: connected_to
         }
       end
     end
@@ -160,7 +176,15 @@ class ClarkWrightSavings
       max_savings_legs = @savings_list.max_by do |legs_to_add|
         legs_to_add[:saved_trip_leg] + legs_to_add[:return_trip_leg] - legs_to_add[:connection_trip_leg]
       end
-      @tour_primative << max_savings_legs
+
+      # add right leg to the apropriate side of the tour
+      if max_savings_legs[:connected_to] == "end_point_1"
+        @tour_primative.insert( 1, max_savings_legs[:connection_trip_leg])
+
+      elsif max_savings_legs[:connected_to] == "end_point_2"
+        @tour_primative.insert( -2, max_savings_legs[:connection_trip_leg])
+
+      end
       @previous_locations << max_savings_legs[:new_location]
     end
   end
