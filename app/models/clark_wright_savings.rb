@@ -182,10 +182,12 @@ class ClarkWrightSavings
 
         @tour_primative.shift
         @tour_primative.unshift( max_savings_legs[:connection_trip_leg])
+        @tour_primative.unshift( max_savings_legs[:return_trip_leg])
 
       elsif max_savings_legs[:connected_to] == "end_point_2"
         @tour_primative.pop
         @tour_primative.push( max_savings_legs[:connection_trip_leg])
+        @tour_primative.push( max_savings_legs[:return_trip_leg])
 
       end
       @previous_locations << max_savings_legs[:new_location]
