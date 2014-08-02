@@ -10,8 +10,12 @@ class ClarkWrightSavings
     @end_point_2 = Location.new
   end
 
-  def get_route_distance
-
+  def get_route_time
+    route_time = 0
+    @tour_primative.each do |trip_leg|
+      route_time += trip_leg.time
+    end
+    route_time
   end
 
   def update_savings_list
