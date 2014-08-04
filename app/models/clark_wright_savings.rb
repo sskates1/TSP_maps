@@ -176,7 +176,7 @@ class ClarkWrightSavings
         legs_to_add[:saved_trip_leg] + legs_to_add[:return_trip_leg] - legs_to_add[:connection_trip_leg]
       end
 
-      # add right leg to the apropriate side of the tour
+      # add right leg to the apropriate side of the tour and update end points
       if max_savings_legs[:connected_to] == "end_point_1"
         @tour_primative.shift
         @tour_primative.unshift( max_savings_legs[:connection_trip_leg])
@@ -189,9 +189,17 @@ class ClarkWrightSavings
         @tour_primative.push( max_savings_legs[:return_trip_leg])
         @end_point_2 = max_savings_legs[:new_location]
       end
-      
+
       @previous_locations << max_savings_legs[:new_location]
     end
+
+    update_db
+  end
+
+  def update_db
+    @trip.type = "savings"
+    @trip.save
+    
   end
 end
 
