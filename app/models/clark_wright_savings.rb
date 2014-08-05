@@ -199,7 +199,13 @@ class ClarkWrightSavings
   def update_db
     @trip.type = "savings"
     @trip.save
-    
+
+    count = 1
+    @tour_primative.each do |trip_leg|
+      trip_leg.order_position = count
+      count += 1
+    end
+
   end
 end
 
