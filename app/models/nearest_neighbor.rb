@@ -79,6 +79,7 @@ class NearestNeighbor
       current_location = new_location
       # end while
     end
+    @trip.update(type: "nearest_neighbor")
     return @previous_locations
   end
 end
